@@ -1,3 +1,11 @@
+// Copyright (C) 2024  Sohum Mendon
+// SPDX-License-Identifier: MIT
+
+//! Find the first folder with content in a directory tree.
+//!
+//! This exports one public method, [`resolve`].
+
+#![deny(clippy::pedantic)]
 use std::{
     fs, io,
     path::{Path, PathBuf},
@@ -12,6 +20,10 @@ use std::{
 ///                        OR exactly *one file* underneath
 ///                        OR multiple files and directories.
 /// 3. The directory contains exactly one directory underneath.
+///
+/// # Errors
+/// This function may return any error raised by [`fs`]
+/// and its directory iteration methods.
 pub fn resolve(dir: &Path) -> io::Result<PathBuf> {
     // The implementation is iterative rather than recursive.
     // We hold the current "depth" of the search using a
@@ -45,9 +57,8 @@ pub fn resolve(dir: &Path) -> io::Result<PathBuf> {
             let entry = entry?;
             if !entry.file_type()?.is_dir() {
                 break 'depth;
-            } else {
-                candidate = Some(entry.path());
             }
+            candidate = Some(entry.path());
         }
 
         // If we're here, that means we never changed "candidate".

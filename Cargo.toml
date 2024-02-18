@@ -1,7 +1,22 @@
 [package]
 name = "nestedfolder"
-version = "0.1.0"
+version = "0.1.1"
+authors = ["Sohum Mendon <smendon@proton.me>"]
+description = "Look for a non-empty folder in a directory tree."
+
 edition = "2021"
+
+readme = true
+repository = "https://github.com/ssmendon/nestedfolder"
+homepage = "https://github.com/ssmendon/nestedfolder"
+license = "MIT"
+
+keywords = ["nested-folder"]
+categories = ["filesystem"]
+
+[profile.release-strip]
+inherits = "release"
+strip = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
